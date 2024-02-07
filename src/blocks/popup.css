@@ -10,7 +10,7 @@
   width: 430px;
   z-index: 2;
 }
-.popup-forms.show {
+.popup_is-opened {
   visibility: visible;
   opacity: 1;
 }
@@ -33,7 +33,7 @@
 .overlay:hover {
   cursor: pointer;
 }
-.overlay.show {
+.overlay_visible {
   visibility: visible;
   opacity: 1;
 }

@@ -1,11 +1,23 @@
-function Main() {
+import React from "react";
+import AvatarImage from "../images/Avatar.png";
+import PopupWithForm from "./PopupWithForm.js";
+
+function Main({
+  isEditProfilePopupOpen,
+  isAddPlacePopupOpen,
+  isEditAvatarPopupOpen,
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onCloseClick,
+}) {
   return (
     <main className="content">
       <div className="profile">
-        <div className="profile__avatar-container">
+        <div className="profile__avatar-container" onClick={onEditAvatarClick}>
           <img
             className="profile__avatar-image"
-            src="<%= require('./images/Avatar.png') %>"
+            src={AvatarImage}
             alt="foto de perfil"
           />
           <button className="profile__avatar-edit" id="avatarEdit"></button>
@@ -13,137 +25,115 @@ function Main() {
         </div>
         <div className="profile__info">
           <h2 className="profile__name">Jacques Cousteau</h2>
-          <button className="profile__edit-button" id="editButton"></button>
+          <button
+            className="profile__edit-button"
+            id="editButton"
+            onClick={onEditProfileClick}
+          ></button>
           <h3 className="profile__about">Explorar</h3>
         </div>
-        <button className="profile__add-button" id="addButton"></button>
+        <button
+          className="profile__add-button"
+          id="addButton"
+          onClick={onAddPlaceClick}
+        ></button>
       </div>
-      <section className="popup popup-forms" id="profilePopup">
-        <button
-          className="popup__close popup__close_edit"
-          id="closeProfile"
-        ></button>
-        <h2 className="popup__title" id="pEdit">
-          Editar Perfil
-        </h2>
-        <form className="popup__form" id="profileForm">
-          <label className="popup__form-field">
-            <input
-              type="text"
-              minLength="2"
-              maxLength="40"
-              placeholder="Nome"
-              id="pName"
-              className="popup__text"
-              required
-            />
-            <span className="error-message" id="nameError"></span>
-          </label>
-          <label className="popup__form-field">
-            <input
-              type="text"
-              minLength="2"
-              maxLength="200"
-              placeholder="Sobre Mim"
-              id="pAboutme"
-              className="popup__text"
-              required
-            />
-            <span className="error-message" id="aboutError"></span>
-          </label>
-        </form>
-        <button
-          type="submit"
-          className="popup__form-submit-button popup__form-submit-button_disabled"
-          id="saveButton"
-        >
-          <span id="saveButtonText">Salvar</span>
-        </button>
-      </section>
-      <section className="popup popup-forms" id="newLocationPopup">
-        <button
-          className="popup__close popup__close_new"
-          id="closeNewLocation"
-        ></button>
-        <h2 className="popup__title" id="pAdd">
-          Novo Local
-        </h2>
-        <form className="popup__form" id="newLocationForm">
-          <label className="popup__form-field">
-            <input
-              type="text"
-              minLength="2"
-              maxLength="30"
-              placeholder="Titulo"
-              id="pTitle"
-              className="popup__text"
-              required
-            />
-            <span className="error-message" id="titleError"></span>
-          </label>
-          <label className="popup__form-field">
-            <input
-              type="url"
-              placeholder="Link de Imagem"
-              id="pLink"
-              className="popup__text"
-              required
-            />
-            <span className="error-message" id="linkError"></span>
-          </label>
-        </form>
-        <button
-          type="submit"
-          className="popup__form-submit-button popup__form-submit-button_disabled"
-          id="createButton"
-        >
-          <span id="createButtonText">Criar</span>
-        </button>
-      </section>
-      <section className="popup popup-forms" id="editAvatarPopup">
-        <button
-          className="popup__close popup__close_new-avatar"
-          id="closeEditAvatar"
-        ></button>
-        <h2 className="popup__title" id="pEdAva">
-          Alterar a foto do perfil
-        </h2>
-        <form className="popup__form" id="newAvatarImageForm">
-          <label>
-            <input
-              type="url"
-              placeholder="Link de Imagem"
-              id="pLinkAvatar"
-              className="popup__text"
-              required
-            />
-            <span className="error-message" id="linkAvatarError"></span>
-          </label>
-        </form>
-        <button
-          type="submit"
-          className="popup__form-submit-button popup__form-submit-button_disabled"
-          id="saveAvatarButton"
-        >
-          <span id="AvatarButtonText">Salvar</span>
-        </button>
-      </section>
-      <section className="popup popup-forms" id="deletePopup">
-        <button
-          className="popup__close popup__close_delete-popup"
-          id="closeDelete"
-        ></button>
-        <h2 className="popup__title" id="pDelete">
-          Tem Certeza?
-        </h2>
-        <button
-          type="submit"
-          className="popup__form-submit-button"
-          id="confirmButton"
-        >
-          Sim
-        </button>
-      </section>
+
+      <PopupWithForm
+        name="profile"
+        title="Editar Perfil"
+        buttonId="saveButton"
+        buttonTextId="saveButtonText"
+        buttonText="Salvar"
+        isOpen={isEditProfilePopupOpen}
+        onClose={onCloseClick}
+      >
+        <label className="popup__form-field">
+          <input
+            type="text"
+            minLength="2"
+            maxLength="40"
+            placeholder="Nome"
+            id="pName"
+            className="popup__text"
+            required
+          />
+          <span className="error-message" id="nameError"></span>
+        </label>
+        <label className="popup__form-field">
+          <input
+            type="text"
+            minLength="2"
+            maxLength="200"
+            placeholder="Sobre Mim"
+            id="pAboutme"
+            className="popup__text"
+            required
+          />
+          <span className="error-message" id="aboutError"></span>
+        </label>
+      </PopupWithForm>
+
+      <PopupWithForm
+        name="newLocation"
+        title="Novo Local"
+        buttonId="createButton"
+        buttonTextId="createButtonText"
+        buttonText="Criar"
+        isOpen={isAddPlacePopupOpen}
+        onClose={onCloseClick}
+      >
+        <label className="popup__form-field">
+          <input
+            type="text"
+            minLength="2"
+            maxLength="30"
+            placeholder="Titulo"
+            id="pTitle"
+            className="popup__text"
+            required
+          />
+          <span className="error-message" id="titleError"></span>
+        </label>
+        <label className="popup__form-field">
+          <input
+            type="url"
+            placeholder="Link de Imagem"
+            id="pLink"
+            className="popup__text"
+            required
+          />
+          <span className="error-message" id="linkError"></span>
+        </label>
+      </PopupWithForm>
+
+      <PopupWithForm
+        name="editAvatar"
+        title="Alterar a foto do perfil"
+        buttonId="saveAvatarButton"
+        buttonTextId="avatarButtonText"
+        buttonText="Salvar"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={onCloseClick}
+      >
+        <label>
+          <input
+            type="url"
+            placeholder="Link de Imagem"
+            id="pLinkAvatar"
+            className="popup__text"
+            required
+          />
+          <span className="error-message" id="linkAvatarError"></span>
+        </label>
+      </PopupWithForm>
+
+      <PopupWithForm
+        name="DeleteConfirmation"
+        title="Tem Certeza?"
+        buttonId="confirmButton"
+        buttonTextId="confirmButtonText"
+      />
 
       <section className="popup popup-image" id="popupImage">
         <img className="popup__Image-Zoom" id="ImageZoom" />
@@ -154,7 +144,14 @@ function Main() {
         <h2 className="popup__image-text" id="ImageTitle"></h2>
       </section>
 
-      <div className="overlay"></div>
+      <div
+        className={`overlay ${
+          isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen
+            ? "overlay_visible"
+            : ""
+        }`}
+        onClick={onCloseClick}
+      ></div>
       <section className="gallery">
         <ul className="card-list"></ul>
         <template id="cardTemplate">
