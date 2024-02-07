@@ -1,0 +1,23 @@
+.page {
+  width: 880px;
+  background-color: black;
+  font-family: "Inter", "Arial Narrow Bold", sans-serif;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+@media screen and (max-width: 425px) {
+  .page {
+    width: 100%;
+    align-items: center;
+  }
+  .content {
+    width: 100%;
+  }
+}
