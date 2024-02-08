@@ -14,6 +14,17 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  getCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 const apiInstance = new Api({

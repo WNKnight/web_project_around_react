@@ -1,19 +1,26 @@
 import React from "react";
-import PopupWithForm from "./PopupWithForm.js";
 import apiInstance from "../utils/Api.js";
+import PopupWithForm from "./PopupWithForm.js";
+import Card from "./Card.js";
+import ImagePopup from "./ImagePopup.js";
 
 function Main({
   isEditProfilePopupOpen,
   isAddPlacePopupOpen,
   isEditAvatarPopupOpen,
+  isDeleteConfirmationOpen,
   onEditProfileClick,
+  selectedCard,
   onAddPlaceClick,
   onEditAvatarClick,
+  onDeleteButtonClick,
   onCloseClick,
+  onCardClick,
 }) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     apiInstance
@@ -22,9 +29,19 @@ function Main({
         setUserName(userInfo.name);
         setUserDescription(userInfo.about);
         setUserAvatar(userInfo.avatar);
-        console.log(userInfo);
       })
       .catch((error) => console.log(error));
+  }, []);
+
+  React.useEffect(() => {
+    apiInstance
+      .getCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao obter os dados dos cartões:", error);
+      });
   }, []);
 
   return (
@@ -58,7 +75,6 @@ function Main({
           onClick={onAddPlaceClick}
         ></button>
       </div>
-
       <PopupWithForm
         name="profile"
         title="Editar Perfil"
@@ -153,40 +169,36 @@ function Main({
         title="Tem Certeza?"
         buttonId="confirmButton"
         buttonTextId="confirmButtonText"
+        buttonText="Sim"
+        isOpen={isDeleteConfirmationOpen}
+        onClose={onCloseClick}
       />
 
-      <section className="popup popup-image" id="popupImage">
-        <img className="popup__Image-Zoom" id="ImageZoom" />
-        <button
-          className="popup__close popup__close_image"
-          id="closeImage"
-        ></button>
-        <h2 className="popup__image-text" id="ImageTitle"></h2>
-      </section>
+      <ImagePopup selectedCard={selectedCard} onClose={onCloseClick} />
 
       <div
         className={`overlay ${
-          isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen
+          isEditProfilePopupOpen ||
+          isAddPlacePopupOpen ||
+          isEditAvatarPopupOpen ||
+          isDeleteConfirmationOpen ||
+          selectedCard
             ? "overlay_visible"
             : ""
         }`}
         onClick={onCloseClick}
       ></div>
       <section className="gallery">
-        <ul className="card-list"></ul>
-        <template id="cardTemplate">
-          <li className="card">
-            <img className="card__img" />
-            <button className="card__delete-button" id="deleteButton"></button>
-            <div className="card__info">
-              <h2 className="card__img-name"></h2>
-              <div className="card__likes">
-                <button type="button" className="card__like-button"></button>
-                <span className="card__like-count">0</span>
-              </div>
-            </div>
-          </li>
-        </template>
+        <ul className="card-list">
+          {cards.map((card) => (
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onDeleteButtonClick={onDeleteButtonClick}
+            />
+          ))}
+        </ul>
       </section>
     </main>
   );

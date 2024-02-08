@@ -130,16 +130,17 @@
   display: none;
 }
 .popup-image {
-  visibility: hidden;
   position: fixed;
   z-index: 2;
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  visibility: hidden;
   opacity: 0;
   top: 10%;
 }
+
 .popup-image.show {
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
 }
 .popup__Image-Zoom {
   max-width: 75vw;

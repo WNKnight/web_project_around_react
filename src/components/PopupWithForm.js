@@ -16,9 +16,11 @@ function PopupWithForm(props) {
       <h2 className="popup__title" id={`title${props.name}`}>
         {props.title}
       </h2>
-      <form className="popup__form" id={`${props.name}Form`}>
-        {props.children}
-      </form>
+      {props.children && (
+        <form className="popup__form" id={`${props.name}Form`}>
+          {props.children}
+        </form>
+      )}
       <button
         type="submit"
         className={`popup__form-submit-button popup__form-submit-button_disabled`}
