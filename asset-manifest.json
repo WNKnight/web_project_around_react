@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/around-react/static/css/main.1cf409e5.css",
+    "main.js": "/around-react/static/js/main.76967d91.js",
+    "static/js/592.275430db.chunk.js": "/around-react/static/js/592.275430db.chunk.js",
+    "static/media/Inter-SemiBoldItalic.woff?v=3.19": "/around-react/static/media/Inter-SemiBoldItalic.463bdbfb28abad0fa6df.woff",
+    "static/media/Inter-MediumItalic.woff?v=3.19": "/around-react/static/media/Inter-MediumItalic.3d0107dd43d0101274d3.woff",
+    "static/media/Inter-BlackItalic.woff?v=3.19": "/around-react/static/media/Inter-BlackItalic.ca1e738e4f349f27514d.woff",
+    "static/media/Inter-Italic.woff?v=3.19": "/around-react/static/media/Inter-Italic.890025e726861dba417f.woff",
+    "static/media/Inter-SemiBold.woff?v=3.19": "/around-react/static/media/Inter-SemiBold.cca62d21c8c555c392e5.woff",
+    "static/media/Inter-Medium.woff?v=3.19": "/around-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff?v=3.19": "/around-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff?v=3.19": "/around-react/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-MediumItalic.woff2?v=3.19": "/around-react/static/media/Inter-MediumItalic.085cb93e613ba3d40d2b.woff2",
+    "static/media/Inter-SemiBoldItalic.woff2?v=3.19": "/around-react/static/media/Inter-SemiBoldItalic.d9467ee321a8f38aefff.woff2",
+    "static/media/Inter-BlackItalic.woff2?v=3.19": "/around-react/static/media/Inter-BlackItalic.cb2a7335650c690077fe.woff2",
+    "static/media/Inter-Italic.woff2?v=3.19": "/around-react/static/media/Inter-Italic.cb10ffd7684cd9836a05.woff2",
+    "static/media/Inter-Medium.woff2?v=3.19": "/around-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-SemiBold.woff2?v=3.19": "/around-react/static/media/Inter-SemiBold.b5f0f109bc88052d4000.woff2",
+    "static/media/Inter-Black.woff2?v=3.19": "/around-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2?v=3.19": "/around-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "index.html": "/around-react/index.html",
+    "main.1cf409e5.css.map": "/around-react/static/css/main.1cf409e5.css.map",
+    "main.76967d91.js.map": "/around-react/static/js/main.76967d91.js.map",
+    "592.275430db.chunk.js.map": "/around-react/static/js/592.275430db.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1cf409e5.css",
+    "static/js/main.76967d91.js"
+  ]
+}
