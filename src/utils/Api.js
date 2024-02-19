@@ -25,6 +25,31 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    const method = isLiked ? "PUT" : "DELETE";
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: method,
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 const apiInstance = new Api({

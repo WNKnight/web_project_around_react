@@ -1,7 +1,7 @@
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function Card({ card, onCardClick, onDeleteButtonClick }) {
+function Card({ card, onCardClick, onDeleteButtonClick, onCardLike }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === currentUser._id;
@@ -15,13 +15,16 @@ function Card({ card, onCardClick, onDeleteButtonClick }) {
     isLiked ? "card__like-button_liked" : ""
   }`;
 
-  const handleClick = () => {
+  const handleCardClick = () => {
     onCardClick(card);
   };
 
-  const handleDeleteButtonClick = (evt) => {
-    evt.stopPropagation();
-    onDeleteButtonClick();
+  const handleDeleteButtonClick = () => {
+    onDeleteButtonClick(card);
+  };
+
+  const handleLikeClick = () => {
+    onCardLike(card);
   };
 
   return (
@@ -30,7 +33,7 @@ function Card({ card, onCardClick, onDeleteButtonClick }) {
         className="card__img"
         src={card.link}
         alt={card.name}
-        onClick={handleClick}
+        onClick={handleCardClick}
       />
       <button
         className={cardDeleteButton}
@@ -40,7 +43,11 @@ function Card({ card, onCardClick, onDeleteButtonClick }) {
       <div className="card__info">
         <h2 className="card__img-name">{card.name}</h2>
         <div className="card__like-container">
-          <button type="button" className={cardLikeButton}></button>
+          <button
+            type="button"
+            className={cardLikeButton}
+            onClick={handleLikeClick}
+          ></button>
           <span className="card__like-count">{card.likes.length}</span>
         </div>
       </div>

@@ -26,11 +26,37 @@ function Main({
       .getCards()
       .then((data) => {
         setCards(data);
+        console.log();
       })
       .catch((error) => {
         console.error("Erro ao obter os dados dos cartões:", error);
       });
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    apiInstance
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar status de curtida:", error);
+      });
+  }
+
+  function handleCardDelete(card) {
+    apiInstance
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
+      })
+      .catch((error) => {
+        console.error("Erro ao excluir o cartão:", error);
+      });
+  }
 
   return (
     <main className="content">
@@ -185,7 +211,8 @@ function Main({
               key={card._id}
               card={card}
               onCardClick={onCardClick}
-              onDeleteButtonClick={onDeleteButtonClick}
+              onDeleteButtonClick={handleCardDelete}
+              onCardLike={handleCardLike}
             />
           ))}
         </ul>
