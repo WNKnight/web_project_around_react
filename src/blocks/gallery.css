@@ -58,10 +58,17 @@
   top: 18px;
   background-color: transparent;
 }
+.card__delete-button_visible {
+  visibility: visible;
+}
+.card__delete-button_hidden {
+  visibility: hidden;
+}
 .card__delete-button:hover {
   opacity: 60%;
   transition: linear 0.2s;
 }
+
 .card__like-container {
   display: flex;
   flex-direction: column;
@@ -80,7 +87,7 @@
   opacity: 60%;
   transition: linear 0.2s;
 }
-.card__like-button_active {
+.card__like-button_liked {
   background-image: url(../images/like-active.png);
   background-color: transparent;
 }

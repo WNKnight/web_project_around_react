@@ -1,4 +1,6 @@
 import React from "react";
+import apiInstance from "../utils/Api.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
@@ -12,6 +14,22 @@ function App() {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
+
+  React.useEffect(() => {
+    apiInstance
+      .getUserInfo()
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        console.log(userInfo);
+      })
+      .catch((error) => {
+        console.error(
+          "Erro ao recuperar as informacoes do usuario atual:",
+          error
+        );
+      });
+  }, []);
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -43,21 +61,23 @@ function App() {
 
   return (
     <div className="page">
-      <Header />
-      <Main
-        isEditProfilePopupOpen={isEditProfilePopupOpen}
-        isAddPlacePopupOpen={isAddPlacePopupOpen}
-        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-        isDeleteConfirmationOpen={isDeleteConfirmationOpen}
-        selectedCard={selectedCard}
-        onEditProfileClick={handleEditProfileClick}
-        onAddPlaceClick={handleAddPlaceClick}
-        onEditAvatarClick={handleEditAvatarClick}
-        onCloseClick={closeAllPopups}
-        onCardClick={handleCardClick}
-        onDeleteButtonClick={handleDeleteButtonClick}
-      />
-      <Footer />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header />
+        <Main
+          isEditProfilePopupOpen={isEditProfilePopupOpen}
+          isAddPlacePopupOpen={isAddPlacePopupOpen}
+          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+          isDeleteConfirmationOpen={isDeleteConfirmationOpen}
+          selectedCard={selectedCard}
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCloseClick={closeAllPopups}
+          onCardClick={handleCardClick}
+          onDeleteButtonClick={handleDeleteButtonClick}
+        />
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

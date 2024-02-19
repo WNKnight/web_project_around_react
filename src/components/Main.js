@@ -1,5 +1,6 @@
 import React from "react";
 import apiInstance from "../utils/Api.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.js";
 import Card from "./Card.js";
 import ImagePopup from "./ImagePopup.js";
@@ -17,21 +18,8 @@ function Main({
   onCloseClick,
   onCardClick,
 }) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
+  const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    apiInstance
-      .getUserInfo()
-      .then((userInfo) => {
-        setUserName(userInfo.name);
-        setUserDescription(userInfo.about);
-        setUserAvatar(userInfo.avatar);
-      })
-      .catch((error) => console.log(error));
-  }, []);
 
   React.useEffect(() => {
     apiInstance
@@ -49,25 +37,27 @@ function Main({
       <div className="profile">
         <div
           className="profile__avatar-container"
-          style={{ backgroundImage: `url(${userAvatar})` }}
+          style={{
+            backgroundImage: `url(${currentUser && currentUser.avatar})`,
+          }}
           onClick={onEditAvatarClick}
         >
           <img
             className="profile__avatar-image"
-            src={userAvatar}
+            src={currentUser && currentUser.avatar}
             alt="foto de perfil"
           />
           <button className="profile__avatar-edit" id="avatarEdit"></button>
           <div className="profile__avatar-overlay"></div>
         </div>
         <div className="profile__info">
-          <h2 className="profile__name">{userName}</h2>
+          <h2 className="profile__name">{currentUser && currentUser.name}</h2>
           <button
             className="profile__edit-button"
             id="editButton"
             onClick={onEditProfileClick}
           ></button>
-          <h3 className="profile__about">{userDescription}</h3>
+          <h3 className="profile__about">{currentUser && currentUser.about}</h3>
         </div>
         <button
           className="profile__add-button"
