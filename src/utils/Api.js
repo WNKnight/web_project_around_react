@@ -63,6 +63,19 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  setUserAvatar(data) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 const apiInstance = new Api({

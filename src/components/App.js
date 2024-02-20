@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
+import EditAvatarPopup from "./EditAvatarPopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -40,6 +41,18 @@ function App() {
       })
       .catch((error) => {
         console.error("Erro ao atualizar perfil:", error);
+      });
+  };
+
+  const handleUpdateAvatar = (avatarData) => {
+    apiInstance
+      .setUserAvatar(avatarData)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar avatar:", error);
       });
   };
 
@@ -90,6 +103,11 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
         <Footer />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
       </CurrentUserContext.Provider>
     </div>
   );

@@ -133,27 +133,6 @@ function Main({
       </PopupWithForm>
 
       <PopupWithForm
-        name="editAvatar"
-        title="Alterar a foto do perfil"
-        buttonId="saveAvatarButton"
-        buttonTextId="avatarButtonText"
-        buttonText="Salvar"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={onCloseClick}
-      >
-        <label>
-          <input
-            type="url"
-            placeholder="Link de Imagem"
-            id="pLinkAvatar"
-            className="popup__text"
-            required
-          />
-          <span className="error-message" id="linkAvatarError"></span>
-        </label>
-      </PopupWithForm>
-
-      <PopupWithForm
         name="DeleteConfirmation"
         title="Tem Certeza?"
         buttonId="confirmButton"
