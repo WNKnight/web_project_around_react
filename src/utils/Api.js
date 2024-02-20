@@ -15,6 +15,19 @@ class Api {
     });
   }
 
+  setUserInfo(data) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Erro ao editar o perfil: ${res.status}`);
+    });
+  }
+
   getCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,

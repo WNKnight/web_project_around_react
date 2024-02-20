@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.js";
 import Card from "./Card.js";
 import ImagePopup from "./ImagePopup.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 
 function Main({
   isEditProfilePopupOpen,
@@ -14,9 +15,9 @@ function Main({
   selectedCard,
   onAddPlaceClick,
   onEditAvatarClick,
-  onDeleteButtonClick,
   onCloseClick,
   onCardClick,
+  onUpdateUser,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = React.useState([]);
@@ -91,40 +92,12 @@ function Main({
           onClick={onAddPlaceClick}
         ></button>
       </div>
-      <PopupWithForm
-        name="profile"
-        title="Editar Perfil"
-        buttonId="saveButton"
-        buttonTextId="saveButtonText"
-        buttonText="Salvar"
+
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={onCloseClick}
-      >
-        <label className="popup__form-field">
-          <input
-            type="text"
-            minLength="2"
-            maxLength="40"
-            placeholder="Nome"
-            id="pName"
-            className="popup__text"
-            required
-          />
-          <span className="error-message" id="nameError"></span>
-        </label>
-        <label className="popup__form-field">
-          <input
-            type="text"
-            minLength="2"
-            maxLength="200"
-            placeholder="Sobre Mim"
-            id="pAboutme"
-            className="popup__text"
-            required
-          />
-          <span className="error-message" id="aboutError"></span>
-        </label>
-      </PopupWithForm>
+        onUpdateUser={onUpdateUser}
+      />
 
       <PopupWithForm
         name="newLocation"

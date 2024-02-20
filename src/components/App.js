@@ -31,6 +31,18 @@ function App() {
       });
   }, []);
 
+  const handleUpdateUser = (userData) => {
+    apiInstance
+      .setUserInfo(userData)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar perfil:", error);
+      });
+  };
+
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
   };
@@ -75,6 +87,7 @@ function App() {
           onCloseClick={closeAllPopups}
           onCardClick={handleCardClick}
           onDeleteButtonClick={handleDeleteButtonClick}
+          onUpdateUser={handleUpdateUser}
         />
         <Footer />
       </CurrentUserContext.Provider>

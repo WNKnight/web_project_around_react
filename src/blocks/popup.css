@@ -109,7 +109,7 @@
 .popup__form-submit-button:hover {
   opacity: 60%;
 }
-.popup__form-submit-button_disabled {
+/*.popup__form-submit-button_disabled {
   background-color: #fff;
   border: 1px solid #e7dede;
   color: #e7dede;
@@ -117,6 +117,7 @@
   pointer-events: none;
   border-radius: 3px;
 }
+*/
 .error-message {
   font-size: 12px;
   color: red;
