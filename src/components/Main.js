@@ -100,39 +100,6 @@ function Main({
       />
 
       <PopupWithForm
-        name="newLocation"
-        title="Novo Local"
-        buttonId="createButton"
-        buttonTextId="createButtonText"
-        buttonText="Criar"
-        isOpen={isAddPlacePopupOpen}
-        onClose={onCloseClick}
-      >
-        <label className="popup__form-field">
-          <input
-            type="text"
-            minLength="2"
-            maxLength="30"
-            placeholder="Titulo"
-            id="pTitle"
-            className="popup__text"
-            required
-          />
-          <span className="error-message" id="titleError"></span>
-        </label>
-        <label className="popup__form-field">
-          <input
-            type="url"
-            placeholder="Link de Imagem"
-            id="pLink"
-            className="popup__text"
-            required
-          />
-          <span className="error-message" id="linkError"></span>
-        </label>
-      </PopupWithForm>
-
-      <PopupWithForm
         name="DeleteConfirmation"
         title="Tem Certeza?"
         buttonId="confirmButton"

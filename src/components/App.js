@@ -1,3 +1,4 @@
+// App.js
 import React from "react";
 import apiInstance from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
@@ -5,6 +6,7 @@ import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
+import AddPlacePopup from "./AddPlacePopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -16,6 +18,7 @@ function App() {
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     apiInstance
@@ -29,6 +32,16 @@ function App() {
           "Erro ao recuperar as informacoes do usuario atual:",
           error
         );
+      });
+
+    apiInstance
+      .getCards()
+      .then((data) => {
+        setCards(data);
+        console.log();
+      })
+      .catch((error) => {
+        console.error("Erro ao obter os dados dos cartões:", error);
       });
   }, []);
 
@@ -53,6 +66,43 @@ function App() {
       })
       .catch((error) => {
         console.error("Erro ao atualizar avatar:", error);
+      });
+  };
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    apiInstance
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar status de curtida:", error);
+      });
+  };
+
+  const handleCardDelete = (card) => {
+    apiInstance
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
+      })
+      .catch((error) => {
+        console.error("Erro ao excluir o cartão:", error);
+      });
+  };
+
+  const handleAddPlaceSubmit = (newCardData) => {
+    apiInstance
+      .addCard(newCardData)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.error("Erro ao adicionar novo cartão:", error);
       });
   };
 
@@ -101,12 +151,20 @@ function App() {
           onCardClick={handleCardClick}
           onDeleteButtonClick={handleDeleteButtonClick}
           onUpdateUser={handleUpdateUser}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlaceSubmit={handleAddPlaceSubmit}
         />
       </CurrentUserContext.Provider>
     </div>
