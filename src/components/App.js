@@ -1,4 +1,3 @@
-// App.js
 import React from "react";
 import apiInstance from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
@@ -7,6 +6,7 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -156,15 +156,20 @@ function App() {
           onCardDelete={handleCardDelete}
         />
         <Footer />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
+          onUpdateUser={handleUpdateUser}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
       </CurrentUserContext.Provider>
     </div>

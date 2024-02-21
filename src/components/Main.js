@@ -4,7 +4,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.js";
 import Card from "./Card.js";
 import ImagePopup from "./ImagePopup.js";
-import EditProfilePopup from "./EditProfilePopup.js";
 
 function Main({
   isEditProfilePopupOpen,
@@ -17,7 +16,6 @@ function Main({
   onEditAvatarClick,
   onCloseClick,
   onCardClick,
-  onUpdateUser,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = React.useState([]);
@@ -92,12 +90,6 @@ function Main({
           onClick={onAddPlaceClick}
         ></button>
       </div>
-
-      <EditProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={onCloseClick}
-        onUpdateUser={onUpdateUser}
-      />
 
       <PopupWithForm
         name="DeleteConfirmation"
