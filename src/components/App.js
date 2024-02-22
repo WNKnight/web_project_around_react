@@ -1,5 +1,5 @@
 import React from "react";
-import apiInstance from "../utils/Api.js";
+import apiInstance from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
