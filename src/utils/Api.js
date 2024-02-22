@@ -1,5 +1,3 @@
-// Api.js
-
 class Api {
   constructor(config) {
     this.baseUrl = config.baseUrl;

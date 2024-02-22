@@ -1,9 +1,8 @@
 import React from "react";
-import apiInstance from "../utils/Api.js";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.js";
 import Card from "./Card.js";
 import ImagePopup from "./ImagePopup.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main({
   isEditProfilePopupOpen,
@@ -16,46 +15,11 @@ function Main({
   onEditAvatarClick,
   onCloseClick,
   onCardClick,
+  cards,
+  onCardLike,
+  onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    apiInstance
-      .getCards()
-      .then((data) => {
-        setCards(data);
-        console.log();
-      })
-      .catch((error) => {
-        console.error("Erro ao obter os dados dos cartões:", error);
-      });
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    apiInstance
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch((error) => {
-        console.error("Erro ao atualizar status de curtida:", error);
-      });
-  }
-
-  function handleCardDelete(card) {
-    apiInstance
-      .deleteCard(card._id)
-      .then(() => {
-        setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
-      })
-      .catch((error) => {
-        console.error("Erro ao excluir o cartão:", error);
-      });
-  }
 
   return (
     <main className="content">
@@ -117,15 +81,17 @@ function Main({
       ></div>
       <section className="gallery">
         <ul className="card-list">
-          {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={onCardClick}
-              onDeleteButtonClick={handleCardDelete}
-              onCardLike={handleCardLike}
-            />
-          ))}
+          {cards.map((card) => {
+            return (
+              <Card
+                key={card._id}
+                card={card}
+                onCardClick={onCardClick}
+                onDeleteButtonClick={onCardDelete}
+                onCardLike={onCardLike}
+              />
+            );
+          })}
         </ul>
       </section>
     </main>

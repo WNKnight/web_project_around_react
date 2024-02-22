@@ -3,10 +3,10 @@ import apiInstance from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
-import Footer from "./Footer.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
+import Footer from "./Footer.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -25,10 +25,9 @@ function App() {
       .getUserInfo()
       .then((userInfo) => {
         setCurrentUser(userInfo);
-        console.log(userInfo);
       })
       .catch((error) => {
-        console.error(
+        console.log(
           "Erro ao recuperar as informacoes do usuario atual:",
           error
         );
@@ -38,10 +37,9 @@ function App() {
       .getCards()
       .then((data) => {
         setCards(data);
-        console.log();
       })
       .catch((error) => {
-        console.error("Erro ao obter os dados dos cartões:", error);
+        console.log("Erro ao obter os dados dos cartões:", error);
       });
   }, []);
 
@@ -53,7 +51,7 @@ function App() {
         closeAllPopups();
       })
       .catch((error) => {
-        console.error("Erro ao atualizar perfil:", error);
+        console.log("Erro ao atualizar perfil:", error);
       });
   };
 
@@ -65,7 +63,7 @@ function App() {
         closeAllPopups();
       })
       .catch((error) => {
-        console.error("Erro ao atualizar avatar:", error);
+        console.log("Erro ao atualizar avatar:", error);
       });
   };
 
@@ -79,7 +77,7 @@ function App() {
         );
       })
       .catch((error) => {
-        console.error("Erro ao atualizar status de curtida:", error);
+        console.log("Erro ao atualizar status de curtida:", error);
       });
   };
 
@@ -90,7 +88,7 @@ function App() {
         setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
       })
       .catch((error) => {
-        console.error("Erro ao excluir o cartão:", error);
+        console.log("Erro ao excluir o cartão:", error);
       });
   };
 
@@ -102,7 +100,7 @@ function App() {
         closeAllPopups();
       })
       .catch((error) => {
-        console.error("Erro ao adicionar novo cartão:", error);
+        console.log("Erro ao adicionar novo cartão:", error);
       });
   };
 
@@ -151,11 +149,10 @@ function App() {
           onCardClick={handleCardClick}
           onDeleteButtonClick={handleDeleteButtonClick}
           onUpdateUser={handleUpdateUser}
-          cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
+          cards={cards}
         />
-        <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -171,6 +168,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
+        <Footer />
       </CurrentUserContext.Provider>
     </div>
   );
