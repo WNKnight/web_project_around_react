@@ -1,4 +1,4 @@
-class Api {
+class api {
   constructor(config) {
     this.baseUrl = config.baseUrl;
     this.headers = config.headers;
@@ -91,7 +91,7 @@ class Api {
   }
 }
 
-const apiInstance = new Api({
+const apiInstance = new api({
   baseUrl: "https://around.nomoreparties.co/v1/web_ptbr_08",
   headers: {
     authorization: "7887b144-3999-4d14-a3d6-51691cca960c",
