@@ -25,11 +25,13 @@ function PopupWithForm(props) {
       </form>
       <button
         type="submit"
-        className={`popup__form-submit-button popup__form-submit-button_disabled`}
+        className={`popup__form-submit-button ${
+          props.isValid ? "" : "popup__form-submit-button_disabled"
+        }`}
         id={props.buttonId}
         onClick={props.onSubmit}
       >
-        <span id={props.buttonTextId}>{props.buttonText}</span>
+        {props.buttonText}
       </button>
     </section>
   );

@@ -4,6 +4,17 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
   const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
+  const [titleError, setTitleError] = React.useState("");
+  const [linkError, setLinkError] = React.useState("");
+  const [isValid, setIsValid] = React.useState(false);
+
+  React.useEffect(() => {
+    const isTitleValid = name.length >= 2 && name.length <= 30;
+    const isLinkValid = isUrlValid(link);
+    setIsValid(isTitleValid && isLinkValid);
+    setTitleError(document.getElementById("pTitle").validationMessage);
+    setLinkError(document.getElementById("pLink").validationMessage);
+  }, [name, link]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +29,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
     setLink(e.target.value);
   };
 
+  const isUrlValid = (url) => {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlPattern.test(url);
+  };
+
   return (
     <PopupWithForm
       name="newLocation"
@@ -28,6 +44,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label className="popup__form-field">
         <input
@@ -41,7 +58,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
           value={name}
           onChange={handleNameChange}
         />
-        <span className="error-message" id="titleError"></span>
+        <span
+          className={`error-message ${
+            titleError ? "error-message_active" : ""
+          }`}
+          id="titleError"
+        >
+          {titleError}
+        </span>
       </label>
       <label className="popup__form-field">
         <input
@@ -53,7 +77,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
           value={link}
           onChange={handleLinkChange}
         />
-        <span className="error-message" id="linkError"></span>
+        <span
+          className={`error-message ${linkError ? "error-message_active" : ""}`}
+          id="linkError"
+        >
+          {linkError}
+        </span>
       </label>
     </PopupWithForm>
   );
